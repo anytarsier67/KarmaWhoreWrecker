@@ -2,6 +2,7 @@
 a simple reddit bot to wreck karma whores   ; )
 
 default karma whore is `u/Callusedthenics` who has been proven to aggressively karma farm with dubious claims of a fitness journey
+
 [proof](https://www.reddit.com/r/FitLifeVideos/comments/fbgc12/exposing_post_about_motivation_man/fj43g05?utm_medium=android_app&utm_source=share&context=3)
 
 
