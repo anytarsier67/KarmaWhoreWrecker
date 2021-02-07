@@ -13,43 +13,28 @@ async def Post_Reply():
     num = 0
     KarmaWhore = await reddit.redditor('Callusedthenics')
     async for post in KarmaWhore.stream.submissions(skip_existing=True):
-        flag = False
-        comments = await post.comments()
-        async for comment in comments:
-            try:
-                if comment.author == '--bot-username-here--':
-                    flag = True
-            except Exception as e:
-                flag = True
-                print(f"{e} \n\n skipping... \n\n")
-            break
-        if flag == False:
-            if post.archived == False:
-                if post.locked == False:
-                    try:
-                        await post.downvote()
-                        await post.reply("--message-here--")
-                        num += 1
-                        with open("list.txt","a") as f:
-                            f.writelines(f"{post.url} | {post.id} | {post.permalink} | {post.created_utc}\n")
+        if post.archived == False:
+            if post.locked == False:
+                try:
+                    await post.downvote()
+                    await post.reply("--message-here--")
+                    num += 1
+                    with open("list.txt","a") as f:
+                        f.writelines(f"{post.url} | {post.id} | {post.permalink} | {post.created_utc}\n")
 
-                        print(f"sleeping after reply number: {num}")
-                        await asyncio.sleep(random.randint(30, 60))
-                    except asyncprawcore.exceptions.Forbidden:
-                        print("locked??? passing...")
-                        await asyncio.sleep(random.randint(1, 10))
-                    except Exception as e:
-                        print(f"uh oh :( , traceback: \n\n {e}")
-                        await asyncio.sleep(random.randint(1, 10))
-                else:
-                    await asyncio.sleep(random.randint(1, 10))    
+                    print(f"sleeping after reply number: {num}")
+                    await asyncio.sleep(random.randint(30, 60))
+                except asyncprawcore.exceptions.Forbidden:
+                    print("locked??? passing...")
+                    await asyncio.sleep(random.randint(1, 10))
+                except Exception as e:
+                    print(f"uh oh :( , traceback: \n\n {e}")
+                    await asyncio.sleep(random.randint(1, 10))
             else:
-                await asyncio.sleep(random.randint(1, 10))
+                await asyncio.sleep(random.randint(1, 10))    
         else:
-            print("commented, skipping")
-            await asyncio.sleep(random.randint(1, 3))
+            await asyncio.sleep(random.randint(1, 10))
                 
-
 async def Comment_DownVote():
     num = 0
     KarmaWhore = await reddit.redditor('Callusedthenics')
