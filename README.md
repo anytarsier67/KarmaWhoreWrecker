@@ -14,7 +14,6 @@ clone the repo
 ##### step 2:
 create a reddit account for the bot, once logged in go [here](https://www.reddit.com/prefs/apps) and create a script application.
 
-##### step 3:
 **step 3.1:**
 open the `KarmaWhoreWrecker.py` file in your text editor of choice, place the client id you got from step 2 on line 6, where it says `--client-id-here--` note: replace everything inside the quotes with your id
 
