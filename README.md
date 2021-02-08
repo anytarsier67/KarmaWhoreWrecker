@@ -17,36 +17,27 @@ clone the repo
 create a reddit account for the bot, once logged in go [here](https://www.reddit.com/prefs/apps) and create a script application.
 
 ##### step 3.1:
-open the `KarmaWhoreWrecker.py` file in your text editor of choice, place the client id you got from step 2 on line 6, where it says `--client-id-here--` 
-
-note: replace everything inside the quotes with your id
+open the `config.py` file in your text editor of choice, place the client id you got from step 2 in the quotes on `line 2`. 
 
 ##### step 3.2:
-place the client secret you got from step 2 on line 7, where it says `--client-secret-here--` 
-
-note: replace everything inside the quotes with your secret
+place the client secret you got from step 2 in the quotes on `line 3`.
 
 ##### step 3.3:
-place the username for the accout you made in step 2 on line 8, where it says `--bot-username-here--` 
-
-note: replace everything inside the quotes with your username
+place the username for the account you made in step 2 in the quotes on `line 4`. 
 
 ##### step 3.4
-place the password for the account you made in step 2 on line 9, where it says `--bot-password-here--` 
-
-note: replace everything inside the quotes with the password
+place the password for the account you made in step 2 in the quotes on `line 5`.
 
 ##### step 3.5
-place basically whatever you want where it says `--user-agent-here--` (or just leave it as is)
+place a user agent in the quotes on `line 6` (or leave as is).
 
 ##### step 4:
-insert the message you want to send where it says `--message-here--` on line 20   
+insert the message you want to send where in the quotes on `line 11` (or leave as is)
 
 note: to add lines breaks put `\n` where you would like the line to break
 
-
 ##### step 5 (optional):
-if you would like to change the karma whore the bot responds to, change the name on lines 14 and 40
+if you would like to change the karma whore the bot responds to, change the name on `line 10` of the config file
 
 
 

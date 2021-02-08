@@ -2,22 +2,23 @@ import asyncprawcore
 import asyncpraw
 import asyncio
 import random
+import config
 
-reddit = asyncpraw.Reddit(client_id = "--client-id-here--",
-                     client_secret = "--client-secret-here--",
-                     username="--bot-username-here--",
-                     password="--bot-password-here--",
-                     user_agent = " --user-agent-here--")
+reddit = asyncpraw.Reddit(client_id = config.account["client_id"],
+                     client_secret = config.account["client_secret"],
+                     username = config.account["username"],
+                     password = config.account["password"],
+                     user_agent = config.account["user_agent"])
 
 async def Post_Reply():
     num = 0
-    KarmaWhore = await reddit.redditor("Callusedthenics")
+    KarmaWhore = await reddit.redditor(config.KarmaWhore["name"])
     async for post in KarmaWhore.stream.submissions(skip_existing=True):
         if post.archived == False:
             if post.locked == False:
                 try:
                     await post.downvote()
-                    await post.reply("--message-here--")
+                    await post.reply(config.KarmaWhore["message"])
                     num += 1
                     with open("list.txt","a") as f:
                         f.writelines(f"{post.url} | {post.id} | {post.permalink} | {post.created_utc}\n")
@@ -37,7 +38,7 @@ async def Post_Reply():
                 
 async def Comment_DownVote():
     num = 0
-    KarmaWhore = await reddit.redditor("Callusedthenics")
+    KarmaWhore = await reddit.redditor(config.KarmaWhore["name"])
     async for comment in KarmaWhore.stream.comments(skip_existing=True):
         if comment.archived == False:
             if comment.locked == False:
