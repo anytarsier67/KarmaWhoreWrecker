@@ -5,13 +5,13 @@ import random
 
 reddit = asyncpraw.Reddit(client_id = "--client-id-here--",
                      client_secret = "--client-secret-here--",
-                     username='--bot-username-here--',
-                     password='--bot-password-here--',
+                     username="--bot-username-here--",
+                     password="--bot-password-here--",
                      user_agent = " --user-agent-here--")
 
 async def Post_Reply():
     num = 0
-    KarmaWhore = await reddit.redditor('Callusedthenics')
+    KarmaWhore = await reddit.redditor("Callusedthenics")
     async for post in KarmaWhore.stream.submissions(skip_existing=True):
         if post.archived == False:
             if post.locked == False:
@@ -37,7 +37,7 @@ async def Post_Reply():
                 
 async def Comment_DownVote():
     num = 0
-    KarmaWhore = await reddit.redditor('Callusedthenics')
+    KarmaWhore = await reddit.redditor("Callusedthenics")
     async for comment in KarmaWhore.stream.comments(skip_existing=True):
         if comment.archived == False:
             if comment.locked == False:
