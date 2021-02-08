@@ -43,7 +43,7 @@ note: replace everything inside the quotes with the password
 place basically whatever you want where it says `--user-agent-here--` (or just leave it as is)
 
 ##### step 4:
-insert the message you want to send where it says `--message-here` on line 20   
+insert the message you want to send where it says `--message-here--` on line 20   
 
 note: to add lines breaks put `\n` where you would like the line to break
 
