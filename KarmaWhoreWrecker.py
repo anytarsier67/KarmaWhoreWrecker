@@ -9,7 +9,7 @@ reddit = asyncpraw.Reddit(client_id = config.account["client_id"],
                      username = config.account["username"],
                      password = config.account["password"],
                      user_agent = config.account["user_agent"])
-print(f"logged in to account: {config.account['username']}")
+print(f"logged in to account: {config.account['username']}\nkarma whore is: {config.KarmaWhore['name']}\nmessage is:\n\n{config.KarmaWhore['message']}\n\n")
 
 async def Post_Reply():
     num = 0
