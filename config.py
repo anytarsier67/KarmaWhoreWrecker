@@ -1,9 +1,9 @@
 account = {
-    "client_id": " ",
-    "client_secret": " ",
-    "username": " ",
-    "password": " ",
-    "user_agent": "ebic-user-agent "
+    "client_id": "",
+    "client_secret": "",
+    "username": "",
+    "password": "",
+    "user_agent": "ebic-user-agent"
 }
 
 KarmaWhore = {
