@@ -21,7 +21,6 @@ KarmaWhore = reddit.redditor(data["KarmaWhore"]["name"])
 print(f"logged in to account: {account['username']}\nkarma whore is: {KarmaWhore}\nmessage is:\n\n{message}\n\n")
 
 def Post_Reply(KarmaWhore, message):
-    print('func')
     for post in KarmaWhore.stream.submissions(skip_existing=True):
         print(post)
         if post.archived == False:
@@ -41,10 +40,8 @@ def Post_Reply(KarmaWhore, message):
                 time.sleep(random.randint(1, 10))    
         else:
             time.sleep(random.randint(1, 10))
-    print('func -_O')
 
 def Comment_DownVote(KarmaWhore):
-    print('func 2')
     for comment in KarmaWhore.stream.comments(skip_existing=True):
         if comment.archived == False:
             if comment.locked == False:
@@ -58,7 +55,6 @@ def Comment_DownVote(KarmaWhore):
                 time.sleep(random.randint(1, 5))
         else:
             time.sleep(random.randint(1, 5))
-    print('func2 -_O')
 
 
 comment_thread = threading.Thread(target=Comment_DownVote, args=(KarmaWhore,))
