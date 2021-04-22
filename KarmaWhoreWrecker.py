@@ -1,64 +1,73 @@
-import asyncprawcore
-import asyncpraw
-import asyncio
+import praw
+import prawcore
 import random
-import config
+import json
+import threading
+import time
 
-reddit = asyncpraw.Reddit(client_id = config.account["client_id"],
-                     client_secret = config.account["client_secret"],
-                     username = config.account["username"],
-                     password = config.account["password"],
-                     user_agent = config.account["user_agent"])
-print(f"logged in to account: {config.account['username']}\nkarma whore is: {config.KarmaWhore['name']}\nmessage is:\n\n{config.KarmaWhore['message']}\n\n")
+with open('config.json', 'r') as f:
+    data = json.load(f)
+    account = data["account"]
+    message = data["KarmaWhore"]["message"]
 
-async def Post_Reply():
-    num = 0
-    KarmaWhore = await reddit.redditor(config.KarmaWhore["name"])
-    async for post in KarmaWhore.stream.submissions(skip_existing=True):
+reddit = praw.Reddit(client_id = account["client_id"],
+                     client_secret = account["client_secret"],
+                     username = account["username"],
+                     password = account["password"],
+                     user_agent = account["user_agent"])
+
+KarmaWhore = reddit.redditor(data["KarmaWhore"]["name"])
+
+print(f"logged in to account: {account['username']}\nkarma whore is: {KarmaWhore}\nmessage is:\n\n{message}\n\n")
+
+def Post_Reply(KarmaWhore, message):
+    print('func')
+    for post in KarmaWhore.stream.submissions(skip_existing=True):
+        print(post)
         if post.archived == False:
             if post.locked == False:
                 try:
-                    await post.downvote()
-                    await post.reply(config.KarmaWhore["message"])
-                    num += 1
-                    with open("list.txt","a") as f:
-                        f.writelines(f"{post.url} | {post.id} | {post.permalink} | {post.created_utc}\n")
-
-                    print(f"sleeping after reply number: {num}")
-                    await asyncio.sleep(random.randint(30, 60))
-                except asyncprawcore.exceptions.Forbidden:
-                    print("locked??? passing...")
-                    await asyncio.sleep(random.randint(1, 10))
+                    post.downvote()
+                    post.reply(message)
+                    print(f"sleeping after reply and downvote.")
+                    time.sleep(random.randint(30, 60))
+                except prawcore.exceptions.Forbidden:
+                    print("locked, passing...")
+                    time.sleep(random.randint(1, 10))
                 except Exception as e:
-                    print(f"uh oh :( , traceback: \n\n {e}")
-                    await asyncio.sleep(random.randint(1, 10))
+                    print(e)
+                    time.sleep(random.randint(1, 10))
             else:
-                await asyncio.sleep(random.randint(1, 10))    
+                time.sleep(random.randint(1, 10))    
         else:
-            await asyncio.sleep(random.randint(1, 10))
-                
-async def Comment_DownVote():
-    num = 0
-    KarmaWhore = await reddit.redditor(config.KarmaWhore["name"])
-    async for comment in KarmaWhore.stream.comments(skip_existing=True):
+            time.sleep(random.randint(1, 10))
+    print('func -_O')
+
+def Comment_DownVote(KarmaWhore):
+    print('func 2')
+    for comment in KarmaWhore.stream.comments(skip_existing=True):
         if comment.archived == False:
             if comment.locked == False:
                 try:
-                    await comment.downvote()
-                    num += 1
-                    print(f"downvoted! (comment) {num}")
+                    comment.downvote()
+                    print("downvoted comment.")
                 except Exception as e:
-                    print(f"uh oh :( , traceback: \n\n {e}")
-                await asyncio.sleep(random.randint(1, 10))
+                    print(e)
+                time.sleep(random.randint(1, 10))
             else:
-                await asyncio.sleep(random.randint(1, 5))
+                time.sleep(random.randint(1, 5))
         else:
-            await asyncio.sleep(random.randint(1, 5))
+            time.sleep(random.randint(1, 5))
+    print('func2 -_O')
 
-        
-loop = asyncio.get_event_loop()
-loop.run_until_complete(asyncio.gather(Post_Reply(), Comment_DownVote()))
-loop.close()
-print("exit")
+
+comment_thread = threading.Thread(target=Comment_DownVote, args=(KarmaWhore,))
+post_thread = threading.Thread(target=Post_Reply, args=(KarmaWhore, message))
+
+comment_thread.start()
+post_thread.start()
+
+while True:
+    pass
 
 

@@ -1,35 +1,12 @@
 import tkinter as tk
 from tkinter import StringVar
-try:
-    import config
-    account = {
-    "client_id": config.account["client_id"],
-    "client_secret": config.account["client_secret"],
-    "username": config.account["username"],
-    "password": config.account["password"],
-    "user_agent": config.account["user_agent"]
-    }
+import json
 
-    KarmaWhore = {
-        "name": config.KarmaWhore["name"],
-        "message": config.KarmaWhore["message"]
-    }
-    print("imported config")
-except:
-    print("except")
-    account = {
-    "client_id": "",
-    "client_secret": "",
-    "username": "",
-    "password": "",
-    "user_agent": ""
-    }
-
-    KarmaWhore = {
-        "name": "",
-        "message": ""
-    }
-
+with open('config.json', 'r') as f:
+    config = json.load(f)
+    account = config["account"]
+    KarmaWhore = config["KarmaWhore"]
+ 
 class NewprojectApp:
     def __init__(self, master=None):
         # build ui
@@ -109,6 +86,7 @@ class NewprojectApp:
         self.mainwindow.mainloop()
 
     def set_config(self):
+        global config, account, KarmaWhore
         account["client_id"] = self.client_id_entry.get()
         account["client_secret"] = self.client_secret_entry.get()
         account["username"] = self.username_entry.get()
@@ -116,11 +94,10 @@ class NewprojectApp:
         account["user_agent"] = self.user_agent_entry.get()
         KarmaWhore["name"] = self.karmawhore_name_entry.get()
         KarmaWhore["message"] = self.karmawhore_message_entry.get()
-        print(f"{account}\n\n{KarmaWhore}")
-        with open ('config.py', 'w')as f:
-            f.write(f"account = {account}\n")
-            f.write(f"KarmaWhore = {KarmaWhore}")
-
+        config["account"] = account
+        config["KarmaWhore"] = KarmaWhore
+        with open('config.json', 'w') as f:
+            json.dump(config, f, indent=4)
 
 if __name__ == '__main__':
     import tkinter as tk

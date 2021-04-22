@@ -1,2 +1,2 @@
-asyncpraw==7.1.0
-asyncprawcore==1.5.0
+praw==7.1.0
+prawcore==1.5.0
